@@ -3,9 +3,10 @@ import asyncio
 import logging
 
 from homeassistant.core import callback
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 # The domain of your component. Should be equal to the name of your component.
-DOMAIN = "expose_service_sync"
+DOMAIN = "http_service"
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -13,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 def async_setup(hass, config):
     """Setup the service example component."""
     @callback
-    def my_service(call):
+    def http_request(call):
         """My first service."""
         _LOGGER.info('Received data', call.data)
 
