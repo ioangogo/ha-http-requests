@@ -16,10 +16,16 @@ def async_setup(hass, config):
     @callback
     def http_request(call):
         """My first service."""
-        _LOGGER.info('Received data', call.data)
+        if 'verify_ssl' not in call.data.keys():
+            verify_ssl = True
+        else:
+            verify_ssl = call.data['verify_ssl']
+
+        websession = async_get_clientsession(hass, verify_ssl)
+        _LOGGER.info('Received data %s', call.data)
 
     # Register our service with Home Assistant.
-    hass.services.async_register(DOMAIN, 'demo', my_service)
+    hass.services.async_register(DOMAIN, 'http_request', http_request)
 
     # Return boolean to indicate that initialization was successfully.
     return True
