@@ -12,3 +12,7 @@ http_get:
       description: a dictionary that contains headers 
     get_params:
       description: a dictionary of params you want to send as get params
+    auth_username:
+      description: the user name to use if the resource requires auth
+    auth_password:
+      description: the password to use if the resource requires auth

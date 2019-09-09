@@ -1,8 +1,12 @@
 {
-  "domain": "expose_service_async",
-  "name": "Expose Service (async)",
+  "domain": "http_requests",
+  "name": "http Requests",
   "documentation": "https://github.com/home-assistant/example-custom-config/tree/master/custom_components/expose_service_async/",
   "dependencies": [],
-  "codeowners": [],
-  "requirements": []
+  "codeowners": [
+    "ioangogo"
+  ],
+  "requirements": [
+    "requests"
+  ]
 }
