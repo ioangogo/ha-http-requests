@@ -30,6 +30,8 @@ def Setup(hass, config):
 
         resp = requests.get(call.data['url'], param=call.data['get_params'], headers=headers, verify=verify_ssl)
 
+        return resp.status_code == 200
+
     # Register our service with Home Assistant.
     hass.services.register(DOMAIN, 'http_get', http_get)
 
