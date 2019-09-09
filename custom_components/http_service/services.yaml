@@ -1,12 +1,14 @@
 
-http_request:
+http_get:
   description: does a HTTPS request
   fields:
     url:
-      description: Number of snapshots you wish to keep.
+      description: the base url, avoid using params here.
       examle: "https://homeassistant.io"
     verify_ssl:
       description: tells home-assistant if it should check if the SSL certificate is valid, deaults to true
       example: true
     headers:
       description: a dictionary that contains headers 
+    get_params:
+      description: a dictionary of params you want to send as get params

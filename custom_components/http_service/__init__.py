@@ -1,31 +1,37 @@
 """Example of a custom component exposing a service."""
-import asyncio
 import logging
 
-from homeassistant.core import callback
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
+import requests
+
+from .const import (
+    basic_headers
+)
 
 # The domain of your component. Should be equal to the name of your component.
-DOMAIN = "http_service"
+DOMAIN = "http_requests"
 _LOGGER = logging.getLogger(__name__)
 
 
-@asyncio.coroutine
-def async_setup(hass, config):
+
+def Setup(hass, config):
     """Setup the service example component."""
-    @callback
-    def http_request(call):
+    def http_get(call):
         """My first service."""
         if 'verify_ssl' not in call.data.keys():
-            verify_ssl = True
+            verify_ssl = basic_headers.update(call.data['verify_ssl'])
         else:
             verify_ssl = call.data['verify_ssl']
 
-        websession = async_get_clientsession(hass, verify_ssl)
-        _LOGGER.info('Received data %s', call.data)
+        if 'User-Agent' not in call.data['headers'].keys():
+            headers = basic_headers
+            headers.update(call.data['headers'])
+        else:
+            headers = call.data['headers']
+
+        resp = requests.get(call.data['url'], param=call.data['get_params'], headers=headers, verify=verify_ssl)
 
     # Register our service with Home Assistant.
-    hass.services.async_register(DOMAIN, 'http_request', http_request)
+    hass.services.register(DOMAIN, 'http_get', http_get)
 
     # Return boolean to indicate that initialization was successfully.
     return True
