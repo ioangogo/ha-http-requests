@@ -1,20 +1,19 @@
-"""Example of a custom component exposing a service."""
+"""Services that allow requests to be made from automations"""
 import logging
 
 import requests
 
 from .const import basic_headers
 
-# The domain of your component. Should be equal to the name of your component.
 DOMAIN = "http_requests"
 _LOGGER = logging.getLogger(__name__)
 
 
 def setup(hass, config):
-    """Setup the service example component."""
+    """Setup the component."""
 
     def http_get(call):
-        """My first service."""
+        """Performs a get request"""
 
         verify_ssl = (
             True if "verify_ssl" not in call.data.keys() else call.data["verify_ssl"]
@@ -26,8 +25,14 @@ def setup(hass, config):
 
         auth = None
         if "auth_username" in call.data.keys() and "auth_password" in call.data.keys():
-            auth = (call.data["auth_username"] if "auth_username" in call.data.keys() else None, 
-            call.data["auth_password"] if "auth_password" in call.data.keys() else None)
+            auth = (
+                call.data["auth_username"]
+                if "auth_username" in call.data.keys()
+                else None,
+                call.data["auth_password"]
+                if "auth_password" in call.data.keys()
+                else None,
+            )
 
         resp = requests.get(
             url=call.data["url"],
