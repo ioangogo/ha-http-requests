@@ -5,3 +5,9 @@ This custom component exposes a service that enables you to preform a HTTP reque
 
 # Installation
 
+1. copy the custom component folder into you home assistant install
+2. add this to you configuration
+
+```
+http_requests:
+```
