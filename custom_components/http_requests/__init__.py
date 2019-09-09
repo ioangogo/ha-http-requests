@@ -26,7 +26,8 @@ def setup(hass, config):
 
         auth = None
         if "auth_username" in call.data.keys() and "auth_password" in call.data.keys():
-            auth = (call.data["auth_username"], call.data["auth_password"])
+            auth = (call.data["auth_username"] if "auth_username" in call.data.keys() else None, 
+            call.data["auth_password"] if "auth_password" in call.data.keys() else None)
 
         resp = requests.get(
             url=call.data["url"],
