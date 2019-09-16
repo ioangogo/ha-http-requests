@@ -1,6 +1,6 @@
 
 http_get:
-  description: does a HTTPS request
+  description: does a HTTP get request
   fields:
     url:
       description: the base url, avoid using params here.
@@ -12,6 +12,24 @@ http_get:
       description: a dictionary that contains headers 
     get_params:
       description: a dictionary of params you want to send as get params
+    auth_username:
+      description: the user name to use if the resource requires auth
+    auth_password:
+      description: the password to use if the resource requires auth
+
+http_post:
+  description: does a HTTP post request
+  fields:
+    url:
+      description: the base url, avoid using params here.
+      examle: "https://homeassistant.io"
+    verify_ssl:
+      description: tells home-assistant if it should check if the SSL certificate is valid, deaults to true
+      example: true
+    headers:
+      description: a dictionary that contains headers 
+    data:
+      description: a dictionary of data you want to send in the body
     auth_username:
       description: the user name to use if the resource requires auth
     auth_password:
